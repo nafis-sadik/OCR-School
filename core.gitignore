@@ -1,0 +1,67 @@
+*.swp
+*.*~
+project.lock.json
+.DS_Store
+*.pyc
+nupkg/
+
+# Visual Studio Code
+.vscode
+
+# Rider
+.idea
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+Application/[Dd]ebug/
+Application/[Dd]ebugPublic/
+Application/[Rr]elease/
+Application/[Rr]eleases/
+Application/x64/
+Application/x86/
+Application/build/
+Application/bld/
+Application/[Bb]in/
+Application/[Oo]bj/
+Application/[Oo]ut/
+Application/msbuild.log
+Application/msbuild.err
+Application/msbuild.wrn
+
+Entities/[Dd]ebug/
+Entities/[Dd]ebugPublic/
+Entities/[Rr]elease/
+Entities/[Rr]eleases/
+Entities/x64/
+Entities/x86/
+Entities/build/
+Entities/bld/
+Entities/[Bb]in/
+Entities/[Oo]bj/
+Entities/[Oo]ut/
+Entities/msbuild.log
+Entities/msbuild.err
+Entities/msbuild.wrn
+
+Services/[Dd]ebug/
+Services/[Dd]ebugPublic/
+Services/[Rr]elease/
+Services/[Rr]eleases/
+Services/x64/
+Services/x86/
+Services/build/
+Services/bld/
+Services/[Bb]in/
+Services/[Oo]bj/
+Services/[Oo]ut/
+Services/msbuild.log
+Services/msbuild.err
+Services/msbuild.wrn
+
+# Visual Studio 2015
+.vs/
