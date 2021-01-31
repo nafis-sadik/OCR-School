@@ -1,0 +1,9 @@
+D:\OCR-School\Entities\bin\Debug\netcoreapp3.1\Entities.deps.json
+D:\OCR-School\Entities\bin\Debug\netcoreapp3.1\Entities.dll
+D:\OCR-School\Entities\bin\Debug\netcoreapp3.1\Entities.pdb
+D:\OCR-School\Entities\obj\Debug\netcoreapp3.1\Entities.csprojAssemblyReference.cache
+D:\OCR-School\Entities\obj\Debug\netcoreapp3.1\Entities.AssemblyInfoInputs.cache
+D:\OCR-School\Entities\obj\Debug\netcoreapp3.1\Entities.AssemblyInfo.cs
+D:\OCR-School\Entities\obj\Debug\netcoreapp3.1\Entities.csproj.CoreCompileInputs.cache
+D:\OCR-School\Entities\obj\Debug\netcoreapp3.1\Entities.dll
+D:\OCR-School\Entities\obj\Debug\netcoreapp3.1\Entities.pdb

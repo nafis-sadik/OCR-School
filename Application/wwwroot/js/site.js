@@ -25,8 +25,12 @@ let scan = () => {
 let displayImagesOnPage = (successful, mesg, response) => {
     // Handler
     var scannedImages = scanner.getScannedImages(response, true, false); // returns an array of ScannedImage
-    for (let i = 0; scannedImages instanceof Array && i < scannedImages.length; i++) {
-        let scannedImage = scannedImages[i];
+    for (
+        var i = 0;
+        scannedImages instanceof Array && i < scannedImages.length;
+        i++
+    ) {
+        var scannedImage = scannedImages[i];
         var elementImg = scanner.createDomElementFromModel({
             name: "img",
             attributes: { class: "scanned", src: scannedImage.src },
@@ -36,4 +40,9 @@ let displayImagesOnPage = (successful, mesg, response) => {
             : document.body
         ).appendChild(elementImg);
     }
+}
+
+let submitScan = () => {
+    // Pull Images
+    // ajax
 }
