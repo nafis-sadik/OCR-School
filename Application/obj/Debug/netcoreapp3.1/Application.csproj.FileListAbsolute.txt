@@ -381,3 +381,14 @@ D:\OCR-School\Application\obj\Debug\netcoreapp3.1\Application.csproj.CopyComplet
 D:\OCR-School\Application\obj\Debug\netcoreapp3.1\Application.dll
 D:\OCR-School\Application\obj\Debug\netcoreapp3.1\Application.pdb
 D:\OCR-School\Application\obj\Debug\netcoreapp3.1\Application.genruntimeconfig.cache
+D:\OCR-School\Application\bin\Debug\netcoreapp3.1\ServiceStack.Common.dll
+D:\OCR-School\Application\bin\Debug\netcoreapp3.1\ServiceStack.Interfaces.dll
+D:\OCR-School\Application\bin\Debug\netcoreapp3.1\ServiceStack.OrmLite.dll
+D:\OCR-School\Application\bin\Debug\netcoreapp3.1\ServiceStack.OrmLite.SqlServer.dll
+D:\OCR-School\Application\bin\Debug\netcoreapp3.1\ServiceStack.Text.dll
+D:\OCR-School\Application\bin\Debug\netcoreapp3.1\System.Data.SqlClient.dll
+D:\OCR-School\Application\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\sni.dll
+D:\OCR-School\Application\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\sni.dll
+D:\OCR-School\Application\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
+D:\OCR-School\Application\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+D:\OCR-School\Application\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll

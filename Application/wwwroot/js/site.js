@@ -43,6 +43,18 @@ let displayImagesOnPage = (successful, mesg, response) => {
 }
 
 let submitScan = () => {
-    // Pull Images
-    // ajax
+    let _image = $('#images>img').attr('src');
+    $.ajax({
+        url: '/Scanner/ScannedImg',
+        type: 'POST',
+        data: {
+            image: _image
+        },
+        success: (result) => {
+            console.log(result);
+        },
+        error: (result) => {
+            console.error(result);
+        }
+    });
 }

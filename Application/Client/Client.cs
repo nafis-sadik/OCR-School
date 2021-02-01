@@ -4,25 +4,23 @@ using Google.Cloud.Vision.V1;
 using System.Collections.Generic;
 using Google.Apis.Auth.OAuth2;
 
+
 namespace OCR_School_Web_App.Client
 {
     public class Client
     {
-        public string[] textFromImage = { };
+        public static string[] textFromImage = { };
 
-        public string[] textFinal = { };
-
-        public string[] arr = { };
-        /*public void setImageText()
+        
+        
+        public static string ImageText
         {
-            textFinal = arr[];
-        }*/
-        public Array getImageText()
-        {
-            return textFromImage;
+            get { return ImageText; }
+            set { ImageText = value; }
         }
+       
 
-        public void LoadImg(string imgPath)
+        public static void LoadImg(string imgPath)
         {
            
             Image image = Image.FromFile(imgPath);
@@ -37,10 +35,12 @@ namespace OCR_School_Web_App.Client
                 if (response[i].Description != null)
                    Console.WriteLine(response[i].Description);
                  textFromImage[i] = response[i].Description;
+                ImageText = response[i].Description;
                   
                                       
             }
-            //setImageText(textFromImage[]);
+            
+            Console.WriteLine(textFromImage);
         }
     }
 }

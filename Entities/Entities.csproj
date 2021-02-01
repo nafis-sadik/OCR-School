@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="ServiceStack.OrmLite.SqlServer.Core" Version="5.10.4" />
+  </ItemGroup>
+
 </Project>
