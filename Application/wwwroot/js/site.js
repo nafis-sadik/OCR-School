@@ -22,30 +22,28 @@ let scan = () => {
     scanner.scan(displayImagesOnPage, scanRequest);
 }
 
-let displayImagesOnPage = (successful, mesg, response) => {
+//let displayImagesOnPage = (successful, mesg, response) => {
+let displayImagesOnPage = (response) => {
     // Handler
-    var scannedImages = scanner.getScannedImages(response, true, false); // returns an array of ScannedImage
-    for (
-        var i = 0;
-        scannedImages instanceof Array && i < scannedImages.length;
-        i++
-    ) {
-        var scannedImage = scannedImages[i];
-        var elementImg = scanner.createDomElementFromModel({
+    let scannedImages = scanner.getScannedImages(response, true, false); // returns an array of ScannedImage
+    //for (let i = 0; scannedImages instanceof Array && i < scannedImages.length; i++) {
+    for (let i = 0; i < scannedImages.length; i++) {
+        let scannedImage = scannedImages[i];
+        let elementImg = scanner.createDomElementFromModel({
             name: "img",
-            attributes: { class: "scanned", src: scannedImage.src },
+            attributes: { class: "scanned", src: scannedImage.src }
         });
-        (document.getElementById("images")
+        (document.getElementById("images")  
             ? document.getElementById("images")
             : document.body
         ).appendChild(elementImg);
     }
-}
+};
 
 let submitScan = () => {
     let _image = $('#images>img').attr('src');
     $.ajax({
-        url: '/Scanner/ScannedImg',
+        url: '/Scanner/UploadScannedImage',
         type: 'POST',
         data: {
             image: _image
@@ -57,4 +55,4 @@ let submitScan = () => {
             console.error(result);
         }
     });
-}
+};
