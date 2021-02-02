@@ -7,11 +7,9 @@ using Google.Apis.Auth.OAuth2;
 
 namespace OCR_School_Web_App.Client
 {
-    public class Client
+    public static class GCP_Vission_Client
     {
-        public static string[] textFromImage = { };
-
-        
+       // public static string[] textFromImage = { };
         
         public static string ImageText
         {
@@ -20,27 +18,24 @@ namespace OCR_School_Web_App.Client
         }
        
 
-        public static void LoadImg(string imgPath)
+        public static string LoadImg(string imgPath)
         {
            
             Image image = Image.FromFile(imgPath);
             ImageAnnotatorClient client = ImageAnnotatorClient.Create();
             IReadOnlyList<EntityAnnotation> response = client.DetectText(image);
 
-            //string[] textOutput = { };
+            string result = "";
 
             for (int i = 1; i < response.Count; i++)
             {
-                
                 if (response[i].Description != null)
-                   Console.WriteLine(response[i].Description);
-                 textFromImage[i] = response[i].Description;
-                ImageText = response[i].Description;
-                  
-                                      
+                    result += response[i].Description;
+                //textFromImage[i] = response[i].Description;
+                //ImageText = response[i].Description;
             }
-            
-            Console.WriteLine(textFromImage);
+            return result;
+           // Console.WriteLine(textFromImage);
         }
     }
 }
