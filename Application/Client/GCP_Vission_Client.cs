@@ -9,7 +9,7 @@ namespace OCR_School_Web_App.Client
 {
     public static class GCP_Vission_Client
     {
-       // public static string[] textFromImage = { };
+       
         
         public static string ImageText
         {
@@ -31,11 +31,10 @@ namespace OCR_School_Web_App.Client
             {
                 if (response[i].Description != null)
                     result += response[i].Description;
-                //textFromImage[i] = response[i].Description;
-                //ImageText = response[i].Description;
+                
             }
             return result;
-           // Console.WriteLine(textFromImage);
+           
         }
     }
 }

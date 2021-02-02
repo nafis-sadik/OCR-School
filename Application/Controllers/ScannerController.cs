@@ -13,7 +13,7 @@ namespace OCR_School_Web_App.Controllers
     public class ScannerController : Controller
     {
         IFileService _fileService;
-        public IConfiguration _config;
+        IConfiguration _config;
         
         public ScannerController(IConfiguration config)
         {
@@ -36,6 +36,7 @@ namespace OCR_School_Web_App.Controllers
 
                 string Output = _config.GetValue<string>(
                 "AppSettings:***********write code:no definitons in AppSettings");
+                
 
 
 

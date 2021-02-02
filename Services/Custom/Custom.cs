@@ -1,10 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.IO;
+using OCR_School_Web_App.
+using Mic;
 
-namespace Services.Custom
+namespace Custom
 {
-    class Class1
+    static class ConfigurationManager: 
     {
+        public static IConfiguration AppSetting { get; }
+        static ConfigurationManager()
+        {
+            AppSetting = new ConfigurationBuilder()
+                    .SetBasePath(Directory.GetCurrentDirectory())
+                    .AddJsonFile("YouAppSettingFile.json")
+                    .Build();
+        }
     }
 }
