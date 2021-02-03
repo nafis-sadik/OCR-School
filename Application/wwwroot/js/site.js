@@ -22,8 +22,7 @@ let scan = () => {
     scanner.scan(displayImagesOnPage, scanRequest);
 }
 
-//let displayImagesOnPage = (successful, mesg, response) => {
-let displayImagesOnPage = (response) => {
+let displayImagesOnPage = (successful, mesg, response) => {    
     // Handler
     let scannedImages = scanner.getScannedImages(response, true, false); // returns an array of ScannedImage
     //for (let i = 0; scannedImages instanceof Array && i < scannedImages.length; i++) {
@@ -42,6 +41,7 @@ let displayImagesOnPage = (response) => {
 
 let submitScan = () => {
     let _image = $('#images>img').attr('src');
+    _image = _image.substring(23, _image.length);
     $.ajax({
         url: '/Scanner/UploadScannedImage',
         type: 'POST',

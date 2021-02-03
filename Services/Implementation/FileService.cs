@@ -1,6 +1,7 @@
 ﻿using Services.Abstraction;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Text;
 
@@ -10,40 +11,24 @@ namespace Services.Implementation
     {
         public bool SaveImageFile(string image, out string ResponseMsg)
         {
-            string _path = @"D:/OCR-School/Services/Images";
-            
-           
-           
-            
             try
             {
-                //using(FileStream fParameter = new FileStream(dirParameter, FileMode.Create, FileAccess.Write))
-                //{
-                    using (StreamWriter m_WriterParameter = new StreamWriter(path: _path))
-                    
-                {
-                        // m_WriterParameter.BaseStream.Seek(0, SeekOrigin.End);
-                        m_WriterParameter.Write(image);
-                        
-                        StreamReader s_reader = new StreamReader(image);
-                        var fileStream = File.Create(path:_path);
-                        s_reader.BaseStream.Seek(0, SeekOrigin.Begin);
-                        s_reader.BaseStream.CopyTo(fileStream);
-                        s_reader.Dispose();
+                string fileName = "";
+                string _path = @"D:/OCR-School/Services/Images/" + fileName + ".jpg";
+                Image _image;
 
-                        m_WriterParameter.Flush();
-                        m_WriterParameter.Close();
-                    }
-                //}
-                
-                
+                using (MemoryStream ms = new MemoryStream(Convert.FromBase64String(image)))
+                {
+                    _image = Image.FromStream(ms);
+                    _image.Save(_path);
+                }
 
                 ResponseMsg = "Successful";
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                if (!string.IsNullOrEmpty(ex.Message))
+                if (ex.InnerException == null)
                     ResponseMsg = ex.Message;
                 else
                     ResponseMsg = ex.InnerException.Message;

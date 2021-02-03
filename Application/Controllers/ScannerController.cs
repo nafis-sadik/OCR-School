@@ -32,13 +32,9 @@ namespace OCR_School_Web_App.Controllers
         {
             if (_fileService.SaveImageFile(image, out string SaveStatusMsg)) {
                 
-                string OCR_Output = GCP_Vission_Client.LoadImg("Path Coming from variable");
+                string OCR_Output = GCP_Vission_Client.LoadImg("D:/OCR-School/Services/Images/ImageFromScanner.jpg");
 
-                string Output = _config.GetValue<string>(
-                "AppSettings:***********write code:no definitons in AppSettings");
-                
-
-
+                //string Output = _config.GetValue<string>("AppSettings:***********write code:no definitons in AppSettings");
 
                 // Redirect to next page
             }

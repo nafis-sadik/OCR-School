@@ -30,11 +30,9 @@ namespace OCR_School_Web_App.Client
             for (int i = 1; i < response.Count; i++)
             {
                 if (response[i].Description != null)
-                    result += response[i].Description;
-                
+                    result += response[i].Description;                
             }
-            return result;
-           
+            return result;           
         }
     }
 }
