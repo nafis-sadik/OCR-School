@@ -11,7 +11,7 @@ namespace Services.Implementation
     {
         public string CropImage(string srcImagePath)
         {
-            float widthPercentile = 0.6f;
+            float widthPercentile = 0.25f;
           
             Image img = Image.FromFile(srcImagePath);
             Rectangle CropArea = new Rectangle(x: Convert.ToInt32(img.Width * (1-widthPercentile)), y: 0, width: img.Width, height: img.Height);
