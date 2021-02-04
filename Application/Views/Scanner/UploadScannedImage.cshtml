@@ -1,0 +1,11 @@
+﻿@model Dictionary<string, string>;
+<form>
+    <div class="form-group">
+        @foreach (KeyValuePair<string, string> element in Model)
+        {
+            <label for="exampleFormControlInput1">@element.Key</label>
+            <input class="form-control" type="text" placeholder="@element.Value" value="@element.Value">
+        }
+    </div>
+    <button id="SubmitMarksheet" type="button" class="btn btn-primary mb-2">Submit Score</button>
+</form>

@@ -41,8 +41,10 @@ namespace OCR_School_Web_App.Controllers
             else {
                 // Redirect to previous page
             }
-
-            return View(OCR_Output);
+            
+            Dictionary<string, string> marksheet = new Dictionary<string, string>();
+            marksheet.Add("Question", OCR_Output);
+            return View(marksheet);
         }
     }
 }

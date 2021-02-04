@@ -20,6 +20,7 @@ const scanRequest = {
 let scan = () => {
     // Triggers the scan
     scanner.scan(displayImagesOnPage, scanRequest);
+    $('.scanned').addClass('col-md-4');
 }
 
 let displayImagesOnPage = (successful, mesg, response) => {    
@@ -32,10 +33,8 @@ let displayImagesOnPage = (successful, mesg, response) => {
             name: "img",
             attributes: { class: "scanned", src: scannedImage.src }
         });
-        (document.getElementById("images")  
-            ? document.getElementById("images")
-            : document.body
-        ).appendChild(elementImg);
+        //(document.getElementById("images") ? document.getElementById("images") : document.body).appendChild(elementImg);
+        $('#images>.row').append(elementImg);
     }
 };
 
@@ -61,3 +60,7 @@ const Controller = (url, method, _data, Viewport = "#Viewport") => {
         }
     });
 }
+
+$('#SubmitMarksheet').click(() => {
+    
+});
