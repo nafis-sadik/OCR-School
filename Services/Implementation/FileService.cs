@@ -1,6 +1,7 @@
 ﻿using Services.Abstraction;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Text;
@@ -13,8 +14,8 @@ namespace Services.Implementation
         {
             try
             {
-                string fileName = "";
-                string _path = @"D:/OCR-School/Services/Images/" + fileName + ".jpg";
+                string fileName = Stopwatch.GetTimestamp().ToString();
+                string _path = @"D:\OCR-School\Images\AnswerScript\AnswerScript_" + fileName + ".jpg";
                 Image _image;
 
                 using (MemoryStream ms = new MemoryStream(Convert.FromBase64String(image)))
@@ -23,7 +24,7 @@ namespace Services.Implementation
                     _image.Save(_path);
                 }
 
-                ResponseMsg = "Successful";
+                ResponseMsg = _path;
                 return true;
             }
             catch (Exception ex)

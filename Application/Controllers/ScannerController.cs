@@ -8,17 +8,19 @@ using Services.Abstraction;
 using Services.Implementation;
 using OCR_School_Web_App.Client;
 
+
 namespace OCR_School_Web_App.Controllers
 {
     public class ScannerController : Controller
     {
         IFileService _fileService;
-        IConfiguration _config;
-        
-        public ScannerController(IConfiguration config)
+        IImageProcessing _imageProcessing;
+
+        public ScannerController()
         {
             _fileService = new FileService();
-            _config = config;
+            _imageProcessing = new ImageProcessing();
+            
             
         }
 
@@ -28,21 +30,19 @@ namespace OCR_School_Web_App.Controllers
         }
 
         [HttpPost]
-        public IActionResult UploadScannedImage(string image)
+        public async Task<IActionResult> UploadScannedImage(string image)
         {
-            if (_fileService.SaveImageFile(image, out string SaveStatusMsg)) {
-                
-                string OCR_Output = GCP_Vission_Client.LoadImg("D:/OCR-School/Services/Images/ImageFromScanner.jpg");
+            string OCR_Output = "";
+            if (_fileService.SaveImageFile(image, out string srcImagePath)) {
 
-                //string Output = _config.GetValue<string>("AppSettings:***********write code:no definitons in AppSettings");
-
-                // Redirect to next page
+                string markSheetImagePath = _imageProcessing.CropImage(srcImagePath);
+                OCR_Output = await GCP_Vission_Client.LoadImg(markSheetImagePath);
             }
             else {
                 // Redirect to previous page
             }
 
-            return View(SaveStatusMsg);
+            return View(OCR_Output);
         }
     }
 }

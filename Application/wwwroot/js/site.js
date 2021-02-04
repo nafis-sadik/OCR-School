@@ -42,17 +42,22 @@ let displayImagesOnPage = (successful, mesg, response) => {
 let submitScan = () => {
     let _image = $('#images>img').attr('src');
     _image = _image.substring(23, _image.length);
+    Controller('/Scanner/UploadScannedImage', 'POST', { image: _image });
+};
+
+const Controller = (url, method, _data, Viewport = "#Viewport") => {
+    if (Viewport[0] != '#') { Viewport = '#' + Viewport; }
+
     $.ajax({
-        url: '/Scanner/UploadScannedImage',
-        type: 'POST',
-        data: {
-            image: _image
-        },
+        url: url,
+        type: method,
+        data: _data,
         success: (result) => {
-            console.log(result);
+            $(Viewport).append(result);
         },
         error: (result) => {
+            alert("Exception from JS Controller\nWatch Debug Console of this browser");
             console.error(result);
         }
     });
-};
+}

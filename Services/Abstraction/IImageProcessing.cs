@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Services.Abstraction
 {
-    public interface IFileService
+    public interface IImageProcessing
     {
-        bool SaveImageFile(string image, out string ResponseMsg);       
+        string CropImage(string imageforCrop);
     }
 }

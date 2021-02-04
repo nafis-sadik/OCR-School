@@ -3,7 +3,7 @@ using Google.Cloud.Storage.V1;
 using Google.Cloud.Vision.V1;
 using System.Collections.Generic;
 using Google.Apis.Auth.OAuth2;
-
+using System.Threading.Tasks;
 
 namespace OCR_School_Web_App.Client
 {
@@ -18,7 +18,7 @@ namespace OCR_School_Web_App.Client
         }
        
 
-        public static string LoadImg(string imgPath)
+        public static async Task<string> LoadImg(string imgPath)
         {
            
             Image image = Image.FromFile(imgPath);
@@ -32,7 +32,7 @@ namespace OCR_School_Web_App.Client
                 if (response[i].Description != null)
                     result += response[i].Description;                
             }
-            return result;           
+            return result;
         }
     }
 }
