@@ -1,8 +1,19 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<script src="~/lib/zoomerang/zoomerang.min.js"></script>
+<script src="~/js/AspriseApplication.js"></script>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+
+<div class="container">
+    <div id="ScannerControls" class="row">
+        <button onclick="selectASource()" class="btn btn-dark">Select Scanner</button>
+        <button onclick="scanAsJpg()" class="btn btn-dark">Scan As Jpg</button>
+        <button onclick="submitForm()" class="btn btn-dark">Submit</button>
+    </div>
+    <form id="MarkSheet" action="/Scanner/SaveMarksheet" method="post" class="form-group" enctype="multipart/form-data">
+        <div id="images" class="row"></div>
+    </form>
+    <div id="info" class="row"></div>
 </div>

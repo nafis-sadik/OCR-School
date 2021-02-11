@@ -2,38 +2,45 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
-const scanRequest = {
-    use_asprise_dialog: true, // Whether to use Asprise Scanning Dialog
-    show_scanner_ui: false, // Whether scanner UI should be shown
-    twain_cap_setting: {
-        // Optional scanning settings
-        ICAP_PIXELTYPE: "TWPT_RGB", // Color
-    },
-    output_settings: [
-        {
-            type: "return-base64",
-            format: "jpg",
-        },
-    ],
+
+const _Router = {
+    ScannedImageSubmission: "/Scanner/UploadScannedImage",
+    PTS: "https://ptsv2.com/t/5n5fj-1612777669/post",
 };
 
-let scan = () => {
-    // Triggers the scan
-    scanner.scan(displayImagesOnPage, scanRequest);
-}
+const Controller = (_url, _method, _data, _viewport = "#Viewport", _cleanViewPort = true, _viewLoadingScreen = true) => {
+    if (_viewport[0] != "#")
+        _viewport = "#" + _viewport;
 
-let displayImagesOnPage = (successful, mesg, response) => {
-    // Handler
-    var scannedImages = scanner.getScannedImages(response, true, false); // returns an array of ScannedImage
-    for (let i = 0; scannedImages instanceof Array && i < scannedImages.length; i++) {
-        let scannedImage = scannedImages[i];
-        var elementImg = scanner.createDomElementFromModel({
-            name: "img",
-            attributes: { class: "scanned", src: scannedImage.src },
-        });
-        (document.getElementById("images")
-            ? document.getElementById("images")
-            : document.body
-        ).appendChild(elementImg);
-    }
-}
+    $.ajax({
+        url: _url,
+        type: _method,
+        data: _data,
+        success: (result) => {
+            if (_viewLoadingScreen)
+                $("#LoadingScreen").hide();
+
+            if (_cleanViewPort)
+                $(_viewport).empty();
+
+            $(_viewport).append(result);
+        },
+        error: (result) => {
+            if (_viewLoadingScreen)
+                $("#LoadingScreen").hide();
+
+            if (_cleanViewPort)
+                $(_viewport).empty();
+
+            $(_viewport).append(result);
+        },
+    });
+};
+
+$(document).ready(() => {
+    $("#LoadingScreen").hide();
+});
+
+$('#SubmitMarksheet').click(() => {
+    // Save Data
+});

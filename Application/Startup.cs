@@ -24,6 +24,11 @@ namespace OCR_School_Web_App
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddCors(options => options.AddPolicy(name: "AllowAllOrigins", builder => {
+                builder.AllowAnyHeader();
+                builder.AllowAnyOrigin();
+                builder.AllowAnyMethod();
+            }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,9 +45,12 @@ namespace OCR_School_Web_App
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseCors("AllowAllOrigins");
 
             app.UseAuthorization();
 
