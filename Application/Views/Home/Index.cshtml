@@ -1,12 +1,19 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<script src="~/lib/zoomerang/zoomerang.min.js"></script>
+<script src="~/js/AspriseApplication.js"></script>
 
-<button onclick="scan()" class="btn btn-dark">Scan</button>
-<button onclick="submitScan()" class="btn btn-dark">Submit</button>
 
-<div id="images" class="container">
-    <div class="row">
 
+<div class="container">
+    <div id="ScannerControls" class="row">
+        <button onclick="selectASource()" class="btn btn-dark">Select Scanner</button>
+        <button onclick="scanAsJpg()" class="btn btn-dark">Scan As Jpg</button>
+        <button onclick="submitForm()" class="btn btn-dark">Submit</button>
     </div>
+    <form id="MarkSheet" action="/Scanner/SaveMarksheet" method="post" class="form-group" enctype="multipart/form-data">
+        <div id="images" class="row"></div>
+    </form>
+    <div id="info" class="row"></div>
 </div>

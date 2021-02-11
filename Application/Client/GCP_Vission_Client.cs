@@ -20,7 +20,6 @@ namespace OCR_School_Web_App.Client
 
         public static async Task<string> LoadImg(string imgPath)
         {
-           
             Image image = Image.FromFile(imgPath);
             ImageAnnotatorClient client = ImageAnnotatorClient.Create();
             IReadOnlyList<EntityAnnotation> response = client.DetectText(image);

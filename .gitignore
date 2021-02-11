@@ -64,5 +64,7 @@ Services/msbuild.err
 Services/msbuild.wrn
 Services/Images
 
+Images/
+
 # Visual Studio 2015
 .vs/

@@ -1,38 +1,68 @@
-﻿using Services.Abstraction;
+﻿using Microsoft.AspNetCore.Http;
+using Services.Abstraction;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Services.Implementation
 {
     public class FileService : IFileService
     {
-        public bool SaveImageFile(string image, out string ResponseMsg)
+        public async Task<List<string>> SaveFormFiles(IFormFileCollection files)
         {
+            List<string> ResponseMsg = new List<string>();
+            string filePath = "";
+            foreach (var file in files)
+            {
+                filePath = @"D:\OCR-School\Images\AnswerScript\AnswerScript_" + Stopwatch.GetTimestamp().ToString() + "_" + file.FileName;
+                using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await file.CopyToAsync(fileStream);
+                }
+                ResponseMsg.Add(filePath);
+            }
+            return ResponseMsg;
+        }
+
+        public bool SaveImageFile(List<string> images, out List<string> ResponseMsg)
+        {
+            ResponseMsg = new List<string>();
             try
             {
-                string fileName = Stopwatch.GetTimestamp().ToString();
-                string _path = @"D:\OCR-School\Images\AnswerScript\AnswerScript_" + fileName + ".jpg";
+                string path = "";
                 Image _image;
 
-                using (MemoryStream ms = new MemoryStream(Convert.FromBase64String(image)))
+                foreach (string image in images)
                 {
-                    _image = Image.FromStream(ms);
-                    _image.Save(_path);
-                }
+                    
+                    var trimmed = image.Trim();
+                    string final = trimmed.Substring(23, trimmed.Length - 23);
 
-                ResponseMsg = _path;
+                    //byte [] base64confirm = Convert.FromBase64String(final);
+                    var dada = Convert.FromBase64String(final);
+                    
+
+                    using (MemoryStream ms = new MemoryStream(Convert.FromBase64String(final)))
+                    {
+                        path = @"D:\OCR-School\Images\AnswerScript\AnswerScript_" + Stopwatch.GetTimestamp().ToString() + ".jpg";
+                        _image = Image.FromStream(ms);
+                        _image.Save(path);
+                        ResponseMsg.Add(path);
+                    }
+                }
+                
                 return true;
             }
             catch (Exception ex)
             {
                 if (ex.InnerException == null)
-                    ResponseMsg = ex.Message;
+                    ResponseMsg.Add(ex.Message);
                 else
-                    ResponseMsg = ex.InnerException.Message;
+                    ResponseMsg.Add(ex.InnerException.Message);
                 return false;
             }
         }
