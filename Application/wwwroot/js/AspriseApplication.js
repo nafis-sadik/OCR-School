@@ -213,15 +213,26 @@ let appendImage = (scannedImage, domParent, isThumbnail) => {
 }
 
 let scanAsJpg = () => {
+
     $('#LoadingScreen').show();
-    displayStatus(true, "Scanning", true);
+
+    displayStatus(true, 'Scanning', true);
     scanner.scan(handleImages,
         {
             "output_settings": [{
                 "type": "return-base64",
                 "format": "jpg"
             }], "i18n": { "lang": getLang() }
-        }, false, false);
+        }, true, false);
+
+    //displayStatus(true, "Scanning", true);
+    //scanner.scan(handleImages,
+    //    {
+    //        "output_settings": [{
+    //            "type": "return-base64",
+    //            "format": "jpg"
+    //        }], "i18n": { "lang": getLang() }
+    //    }, true, true);
 }
 
 //Zoom

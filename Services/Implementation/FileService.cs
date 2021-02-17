@@ -12,9 +12,14 @@ namespace Services.Implementation
 {
     public class FileService : IFileService
     {
-        public async Task<List<string>> SaveFormFiles(IFormFileCollection files)
+        private IImageProcessing _imageProcessing;
+        public FileService()
         {
-            List<string> ResponseMsg = new List<string>();
+            _imageProcessing = new ImageProcessing();
+        }
+        public async Task<IEnumerable<string>> SaveFormFiles(IFormFileCollection files)
+        {
+            List<string> SavedImagePaths = new List<string>();
             string filePath = "";
             foreach (var file in files)
             {
@@ -23,9 +28,10 @@ namespace Services.Implementation
                 {
                     await file.CopyToAsync(fileStream);
                 }
-                ResponseMsg.Add(filePath);
+                SavedImagePaths.Add(filePath);
             }
-            return ResponseMsg;
+            IEnumerable<string> CropedImagePaths = _imageProcessing.BulkCropImage(SavedImagePaths);
+            return CropedImagePaths;
         }
 
         public bool SaveImageFile(List<string> images, out List<string> ResponseMsg)

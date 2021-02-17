@@ -1,0 +1,12 @@
+D:\OCR-School\Repository\bin\Debug\netcoreapp3.1\Repository.deps.json
+D:\OCR-School\Repository\bin\Debug\netcoreapp3.1\Repository.dll
+D:\OCR-School\Repository\bin\Debug\netcoreapp3.1\Repository.pdb
+D:\OCR-School\Repository\bin\Debug\netcoreapp3.1\Entities.dll
+D:\OCR-School\Repository\bin\Debug\netcoreapp3.1\Entities.pdb
+D:\OCR-School\Repository\obj\Debug\netcoreapp3.1\Repository.csprojAssemblyReference.cache
+D:\OCR-School\Repository\obj\Debug\netcoreapp3.1\Repository.AssemblyInfoInputs.cache
+D:\OCR-School\Repository\obj\Debug\netcoreapp3.1\Repository.AssemblyInfo.cs
+D:\OCR-School\Repository\obj\Debug\netcoreapp3.1\Repository.csproj.CoreCompileInputs.cache
+D:\OCR-School\Repository\obj\Debug\netcoreapp3.1\Repository.csproj.CopyComplete
+D:\OCR-School\Repository\obj\Debug\netcoreapp3.1\Repository.dll
+D:\OCR-School\Repository\obj\Debug\netcoreapp3.1\Repository.pdb

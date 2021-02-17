@@ -9,6 +9,6 @@ namespace Services.Abstraction
     public interface IFileService
     {
         bool SaveImageFile(List<string> image, out List<string> ResponseMsg);
-        Task<List<string>> SaveFormFiles(IFormFileCollection files);
+        Task<IEnumerable<string>> SaveFormFiles(IFormFileCollection files);
     }
 }

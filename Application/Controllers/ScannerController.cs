@@ -9,8 +9,8 @@ using Services.Implementation;
 using OCR_School_Web_App.Client;
 using System.Net;
 using System.IO;
-using Entities;
 using Microsoft.AspNetCore.Http;
+using OCR_School_Web_App.Models;
 
 namespace OCR_School_Web_App.Controllers
 {
@@ -18,28 +18,29 @@ namespace OCR_School_Web_App.Controllers
     {
         IFileService _fileService;
         IImageProcessing _imageProcessing;
+        ISaveScoreService _saveScore;
+        
 
         public ScannerController()
         {
             _fileService = new FileService();
             _imageProcessing = new ImageProcessing();
+            _saveScore = new SaveScoreService();
         }
 
         [HttpPost]
         public async Task<IActionResult> UploadScannedImage(List<string> image)
         {
             string OCR_Output = "";
-            IDictionary<string, int> marksheet = new Dictionary<string, int>();
+            Marksheet marksheet = new Marksheet(new List<int>(), new List<int>());
 
             try {
                 if (_fileService.SaveImageFile(image, out List<string> srcImagePath)) {
                     foreach(string imgPath in srcImagePath)
                     {
                         string markSheetImagePath = _imageProcessing.CropImage(imgPath);
-                        OCR_Output = await GCP_Vission_Client.LoadImg(markSheetImagePath);
-                        IDictionary<string, int> marks = CommonServices.GenerateMarksheetFromOCR(OCR_Output);
-                        foreach(KeyValuePair<string, int> value in marks)
-                            marksheet.Add(value);
+                        marksheet = await GCP_Vission_Client.LoadImg(markSheetImagePath);
+                        // implementation requires to be removed = CommonServices.GenerateMarksheetFromOCR(OCR_Output);
                     }
                 } else {
                     return StatusCode((int)HttpStatusCode.InternalServerError);
@@ -60,7 +61,7 @@ namespace OCR_School_Web_App.Controllers
         public async Task<IActionResult> UploadScannedImage2(List<string> image)
         {
             string OCR_Output = "";
-            IDictionary<string, int> marksheet = new Dictionary<string, int>();
+            Marksheet marksheet = new Marksheet(new List<int>(), new List<int>());
 
             try
             {
@@ -69,10 +70,8 @@ namespace OCR_School_Web_App.Controllers
                     foreach (string imgPath in srcImagePath)
                     {
                         string markSheetImagePath = _imageProcessing.CropImage(imgPath);
-                        OCR_Output = await GCP_Vission_Client.LoadImg(markSheetImagePath);
-                        IDictionary<string, int> marks = CommonServices.GenerateMarksheetFromOCR(OCR_Output);
-                        foreach (KeyValuePair<string, int> value in marks)
-                            marksheet.Add(value);
+                        marksheet = await GCP_Vission_Client.LoadImg(markSheetImagePath);
+                        // CommonServices.GenerateMarksheetFromOCR(OCR_Output);
                     }
                 }
                 else
@@ -97,15 +96,15 @@ namespace OCR_School_Web_App.Controllers
         {
             try
             {
-                string OCR_Output = "";
-                IDictionary<string, int> marksheet = new Dictionary<string, int>();
-                List<string> srcImagePath = await _fileService.SaveFormFiles(formCollection.Files);
+                Marksheet marksheet = new Marksheet(new List<int>(), new List <int>());
+                IEnumerable<string> srcImagePath = await _fileService.SaveFormFiles(formCollection.Files);
                 foreach (string imgPath in srcImagePath)
                 {
-                    string markSheetImagePath = _imageProcessing.CropImage(imgPath);
-                    OCR_Output = await GCP_Vission_Client.LoadImg(markSheetImagePath);
-                    marksheet = CommonServices.GenerateMarksheetFromOCR(OCR_Output);
+                    marksheet = await GCP_Vission_Client.LoadImg(imgPath);
+
                 }
+                //_saveScore.SaveScore(marksheet.Question, marksheet.Marks);
+                _saveScore.SaveScore(marksheet);
                 return View(marksheet);
             }
             catch(Exception ex)

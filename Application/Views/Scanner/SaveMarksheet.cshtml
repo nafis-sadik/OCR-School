@@ -1,14 +1,24 @@
-﻿@model Dictionary<string, int>;
+﻿@using OCR_School_Web_App.Models
+@model Marksheet
 @{ 
     Layout = null;
 }
 
 <form>
     <div class="form-group">
-        @foreach (KeyValuePair<string, int> element in Model)
+        @for (int i = 0; i < Model.Question.Count; i++)
         {
-            <label for="exampleFormControlInput1">@element.Key</label>
-            <input class="form-control" type="text" placeholder="@element.Value" value="@element.Value">
+            <label for="exampleFormControlInput1">Question</label>
+            <input class="form-control" type="text" placeholder="@Model.Question[i]" value="@Model.Question[i]">
+            <label for="exampleFormControlInput1">Score</label>
+            @if (Model.Marks.Count > i)
+            {
+                <input class="form-control" type="text" placeholder="@Model.Marks[i]" value="@Model.Marks[i]">
+            }
+            else
+            {
+                <input class="form-control" type="text" placeholder="0" value="0">
+            }
         }
     </div>
     <button id="SubmitMarksheet" type="button" class="btn btn-primary mb-2">Submit Score</button>
