@@ -6,22 +6,18 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using Entities.Models;
+
 
 namespace Services.Implementation
 {
     public class ImageProcessing : IImageProcessing
     {
         private IAnswerscriptlocRepo _answerScriptLocRepo;
-        private IMarksheetRepo _marksheetRepo;
-        private IStudentRepo _studentRepo;
-        private ISubjectRepo _subjectRepo;
         private IMainRepo _mainRepo;
         public ImageProcessing()
         {
             _answerScriptLocRepo = new AnswerscriptlocRepo();
-            _marksheetRepo = new MarksheetRepo();
-            _studentRepo = new StudentRepo();
-            _subjectRepo = new SubjectRepo();
             _mainRepo = new MainRepo();
         }
         public string CropImage(string srcImagePath)
@@ -61,19 +57,23 @@ namespace Services.Implementation
         {
             List<string> CroppedImagePaths = new List<string>();
             string croppedImagePath = "";
+            Random randID = new Random();
             foreach (string savedImages in imageforCrop)
             {
                 croppedImagePath = CropImage(savedImages);
                 CroppedImagePaths.Add(croppedImagePath);
-                _answerScriptLocRepo.Add(new Entities.Models.Answerscriptloc
+                
+                int randomID = randID.Next(100);
+                randomID = _answerScriptLocRepo.AsQueryable().Max(x => x.IdAnswerScriptLoc) + 1;
+
+                _answerScriptLocRepo.Add(new Answerscriptloc
                 {
-                    IdAnswerScriptLoc = _answerScriptLocRepo.AsQueryable().Max(x => x.IdAnswerScriptLoc),
+                    IdAnswerScriptLoc = randomID,
                     AnswerScriptLoc1 = savedImages,
                     CropImgLoc = croppedImagePath
                 });
-
-
             }
+            _answerScriptLocRepo.Save();
             return CroppedImagePaths;
         }
     }

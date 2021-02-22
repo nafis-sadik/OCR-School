@@ -44,13 +44,13 @@ namespace Services.Implementation
 
                 foreach (string image in images)
                 {
-                    
+
                     var trimmed = image.Trim();
                     string final = trimmed.Substring(23, trimmed.Length - 23);
 
                     //byte [] base64confirm = Convert.FromBase64String(final);
                     var dada = Convert.FromBase64String(final);
-                    
+
 
                     using (MemoryStream ms = new MemoryStream(Convert.FromBase64String(final)))
                     {
@@ -60,7 +60,7 @@ namespace Services.Implementation
                         ResponseMsg.Add(path);
                     }
                 }
-                
+
                 return true;
             }
             catch (Exception ex)

@@ -19,7 +19,7 @@ namespace OCR_School_Web_App.Controllers
         IFileService _fileService;
         IImageProcessing _imageProcessing;
         ISaveScoreService _saveScore;
-        
+
 
         public ScannerController()
         {
@@ -34,21 +34,28 @@ namespace OCR_School_Web_App.Controllers
             string OCR_Output = "";
             Marksheet marksheet = new Marksheet(new List<int>(), new List<int>());
 
-            try {
-                if (_fileService.SaveImageFile(image, out List<string> srcImagePath)) {
-                    foreach(string imgPath in srcImagePath)
+            try
+            {
+                if (_fileService.SaveImageFile(image, out List<string> srcImagePath))
+                {
+                    foreach (string imgPath in srcImagePath)
                     {
                         string markSheetImagePath = _imageProcessing.CropImage(imgPath);
+                        
                         marksheet = await GCP_Vission_Client.LoadImg(markSheetImagePath);
                         // implementation requires to be removed = CommonServices.GenerateMarksheetFromOCR(OCR_Output);
                     }
-                } else {
+                }
+                else
+                {
                     return StatusCode((int)HttpStatusCode.InternalServerError);
                 }
 
                 return View(marksheet);
-            } catch(Exception ex) {
-                if(ex.InnerException != null)
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException != null)
                     OCR_Output = ex.InnerException.Message;
                 else
                     OCR_Output = ex.Message;
@@ -92,22 +99,20 @@ namespace OCR_School_Web_App.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SaveMarksheet(IFormCollection formCollection)
+        public async Task<IActionResult> ProcessMarksheet(IFormCollection formCollection)
         {
             try
             {
-                Marksheet marksheet = new Marksheet(new List<int>(), new List <int>());
+                Marksheet marksheet = new Marksheet(new List<int>(), new List<int>());
                 IEnumerable<string> srcImagePath = await _fileService.SaveFormFiles(formCollection.Files);
                 foreach (string imgPath in srcImagePath)
                 {
-                    marksheet = await GCP_Vission_Client.LoadImg(imgPath);
-
+                    marksheet = await ProcessOutput.OutputProcessing(imgPath);
                 }
-                //_saveScore.SaveScore(marksheet.Question, marksheet.Marks);
                 _saveScore.SaveScore(marksheet);
                 return View(marksheet);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError);
             }

@@ -25,8 +25,10 @@ namespace Entities.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
+#pragma warning disable CS1030 // #warning: 'To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.'
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseMySQL("server=localhost;port=3306;user=root;password=root#1234;database=OCR_DB");
+#pragma warning restore CS1030 // #warning: 'To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.'
             }
         }
 
@@ -53,27 +55,13 @@ namespace Entities.Models
                 entity.HasNoKey();
 
                 entity.ToTable("main");
-
-                entity.HasIndex(e => e.AnswerScriptId)
-                    .HasName("Answerscriptid_idx");
-
-                entity.HasIndex(e => e.MarksheetId)
-                    .HasName("Marksheetid_idx");
-
-                entity.HasOne(d => d.AnswerScript)
-                    .WithMany(p => p.Main)
-                    .HasForeignKey(d => d.AnswerScriptId)
-                    .HasConstraintName("Answerscriptid");
-
-                entity.HasOne(d => d.Marksheet)
-                    .WithMany(p => p.Main)
-                    .HasForeignKey(d => d.MarksheetId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("Marksheetid");
             });
 
             modelBuilder.Entity<Marksheet>(entity =>
             {
+                entity.HasKey(e => e.MarksheetTableId)
+                    .HasName("PRIMARY");
+
                 entity.ToTable("marksheet");
 
                 entity.HasIndex(e => e.StudentId)
