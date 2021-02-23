@@ -5,12 +5,21 @@ using System.Collections.Generic;
 using Google.Apis.Auth.OAuth2;
 using System.Threading.Tasks;
 using OCR_School_Web_App.Models;
+using Services.Abstraction;
+using Services.Implementation;
+using Entities.Application;
 
 namespace OCR_School_Web_App.Client
 {
-    public static class GCP_Vission_Client
+    public class GCP_Vission_Client
     {
-        private static bool StringToInt(string str, out int val)
+        private readonly IProcessOutput _processOutput;
+        public GCP_Vission_Client()
+        {
+            _processOutput = new ProcessOutput();
+        }
+
+        private bool StringToInt(string str, out int val)
         {
             val = 0;
             foreach (char ch in str)
@@ -24,9 +33,8 @@ namespace OCR_School_Web_App.Client
             if (val > 0) return true;
             else return false;
         }
-        public static async Task<Marksheet> LoadImg(string imgPath)
-        {
-            
+        public async Task<Marksheet> LoadImg(string imgPath)
+        {            
             // Requesting GCP
             Image image = Image.FromFile(imgPath);
             ImageAnnotatorClient client = ImageAnnotatorClient.Create();
@@ -131,14 +139,15 @@ namespace OCR_School_Web_App.Client
         // public static async IReadOnlyList<EntityAnnotation> OCR_Client(string imgPath)
         // public static async Task<Marksheet> OutputProcessing(IReadOnlyList<EntityAnnotation> imgPath)
         // Marksheet response = OutputProcessing(OCR_Client("path"));
-        public static async Task<IReadOnlyList<EntityAnnotation>> OCR_Client(string imgPath)
+        public Marksheet OCR_Client(string imgPath)
         {
             // Requesting GCP
+            Marksheet marksheet = new Marksheet(new List<int>(), new List<int>());
             Image image = Image.FromFile(imgPath);
             ImageAnnotatorClient client = ImageAnnotatorClient.Create();
             IReadOnlyList<EntityAnnotation> response = client.DetectText(image);
-
-            return response;
+            marksheet = _processOutput.OutputProcessing(response);
+            return marksheet;
         }
     }
 }

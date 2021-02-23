@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace OCR_School_Web_App.Models
+namespace Entities.Application
 {
     public class Marksheet
     {

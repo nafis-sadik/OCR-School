@@ -11,21 +11,21 @@ using System.Net;
 using System.IO;
 using Microsoft.AspNetCore.Http;
 using OCR_School_Web_App.Models;
+using Entities.Application;
 
 namespace OCR_School_Web_App.Controllers
 {
     public class ScannerController : Controller
     {
         IFileService _fileService;
-        IImageProcessing _imageProcessing;
         ISaveScoreService _saveScore;
-
+        GCP_Vission_Client gcpClient;
 
         public ScannerController()
         {
             _fileService = new FileService();
-            _imageProcessing = new ImageProcessing();
             _saveScore = new SaveScoreService();
+            gcpClient = new GCP_Vission_Client();
         }
 
         [HttpPost]
@@ -40,9 +40,9 @@ namespace OCR_School_Web_App.Controllers
                 {
                     foreach (string imgPath in srcImagePath)
                     {
-                        string markSheetImagePath = _imageProcessing.CropImage(imgPath);
+                        //string markSheetImagePath = _imageProcessing.CropImage(imgPath);
                         
-                        marksheet = await GCP_Vission_Client.LoadImg(markSheetImagePath);
+                        //marksheet = await new GCP_Vission_Client().LoadImg(markSheetImagePath);
                         // implementation requires to be removed = CommonServices.GenerateMarksheetFromOCR(OCR_Output);
                     }
                 }
@@ -63,7 +63,6 @@ namespace OCR_School_Web_App.Controllers
             }
         }
 
-
         [HttpPost]
         public async Task<IActionResult> UploadScannedImage2(List<string> image)
         {
@@ -76,8 +75,8 @@ namespace OCR_School_Web_App.Controllers
                 {
                     foreach (string imgPath in srcImagePath)
                     {
-                        string markSheetImagePath = _imageProcessing.CropImage(imgPath);
-                        marksheet = await GCP_Vission_Client.LoadImg(markSheetImagePath);
+                        //string markSheetImagePath = _imageProcessing.CropImage(imgPath);
+                        //marksheet = await new GCP_Vission_Client().LoadImg(markSheetImagePath);
                         // CommonServices.GenerateMarksheetFromOCR(OCR_Output);
                     }
                 }
@@ -107,7 +106,7 @@ namespace OCR_School_Web_App.Controllers
                 IEnumerable<string> srcImagePath = await _fileService.SaveFormFiles(formCollection.Files);
                 foreach (string imgPath in srcImagePath)
                 {
-                    marksheet = await ProcessOutput.OutputProcessing(imgPath);
+                    marksheet = gcpClient.OCR_Client(imgPath);
                 }
                 _saveScore.SaveScore(marksheet);
                 return View(marksheet);
