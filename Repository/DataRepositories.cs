@@ -33,4 +33,11 @@ namespace Repository
     {
         public MainRepo() : base() { }
     }
+
+    public interface IUsermarksheetRepo : IRepositoryBase<Usermarksheet> { }
+    public class UsermarksheetRepo : RepositoryBase<Usermarksheet>, IUsermarksheetRepo
+    {
+        public UsermarksheetRepo() : base() { }
+    }
+
 }

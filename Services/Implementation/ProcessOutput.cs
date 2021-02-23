@@ -9,7 +9,7 @@ namespace Services.Implementation
 {
     public class ProcessOutput : IProcessOutput
     {
-        public dynamic OutputProcessing(IReadOnlyList<dynamic> _response)
+        public Marksheet OutputProcessing(IReadOnlyList<dynamic> _response)
         {
             // Data Types
             Marksheet result = new Marksheet(new List<int>(), new List<int>());

@@ -12,13 +12,13 @@
             <label for="exampleFormControlInput1">Score</label>
             @if (Model.Marks.Count > i)
             {
-                <input class="form-control" type="text" placeholder="@Model.Marks[i]" value="@Model.Marks[i]">
+                <input class="form-control" name="" type="text" placeholder="@Model.Marks[i]" value="@Model.Marks[i]">
             }
             else
             {
-                <input class="form-control" type="text" placeholder="0" value="0">
+                <input class="form-control" name="" type="text" placeholder="0" value="0">
             }
         }
     </div>
-    <button id="SubmitMarksheet" type="button" class="btn btn-primary mb-2">Submit Score</button>
+    <button id="SubmitMarksheet" type="button" onclick ="/Scanner/UserSubmit"  class="btn btn-primary mb-2">Submit Score</button>
 </form>

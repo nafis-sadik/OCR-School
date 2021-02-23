@@ -62,7 +62,7 @@ namespace Services.Implementation
             {
                 croppedImagePath = CropImage(savedImages);
                 CroppedImagePaths.Add(croppedImagePath);
-                
+
                 int randomID = randID.Next(100);
                 randomID = _answerScriptLocRepo.AsQueryable().Max(x => x.IdAnswerScriptLoc) + 1;
 

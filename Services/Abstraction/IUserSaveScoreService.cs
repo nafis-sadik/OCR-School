@@ -1,13 +1,12 @@
 ﻿using Entities.Application;
 using System;
 using System.Collections.Generic;
-
-
+using System.Text;
 
 namespace Services.Abstraction
 {
-    public interface IProcessOutput
+    public interface IUserSaveScoreService
     {
-        Marksheet OutputProcessing(IReadOnlyList<dynamic> _response);
+        bool UserSaveScore(Marksheet marksheet, out string msg);
     }
 }

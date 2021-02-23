@@ -5,6 +5,7 @@ using System.Text;
 using Repository;
 using System.Linq;
 using Entities.Models;
+using Entities.Application;
 
 namespace Services.Implementation
 {
@@ -14,17 +15,17 @@ namespace Services.Implementation
 
         public SaveScoreService() => _marksheetRepo = new MarksheetRepo();
 
-        public void SaveScore(dynamic Marksheet)
+        public void SaveScore(Entities.Application.Marksheet markSheet)
         {
-            IList<int> Questions = Marksheet.Question;
-            IList<int> Scores = Marksheet.Marks;
+            IList<int> Questions = markSheet.Question;
+            IList<int> Scores = markSheet.Marks;
             Random randMSID = new Random();
 
             int randMarkSheetid = _marksheetRepo.AsQueryable().Max(x => x.MarksheetId) + 1;
             for (var i = 0; i < Questions.Count; i++)
             {
                 //StudentID and SubjectId will be provided by API
-                _marksheetRepo.Add(new Marksheet
+                _marksheetRepo.Add(new Entities.Models.Marksheet
                 {
                     MarksheetTableId = _marksheetRepo.AsQueryable().Max(x => x.MarksheetTableId) + i + 1,
                     MarksheetId = randMarkSheetid,

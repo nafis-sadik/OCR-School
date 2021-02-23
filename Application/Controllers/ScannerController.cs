@@ -10,7 +10,6 @@ using OCR_School_Web_App.Client;
 using System.Net;
 using System.IO;
 using Microsoft.AspNetCore.Http;
-using OCR_School_Web_App.Models;
 using Entities.Application;
 
 namespace OCR_School_Web_App.Controllers
@@ -20,12 +19,14 @@ namespace OCR_School_Web_App.Controllers
         IFileService _fileService;
         ISaveScoreService _saveScore;
         GCP_Vission_Client gcpClient;
+        IUserSaveScoreService _userSaveScoreService;
 
         public ScannerController()
         {
             _fileService = new FileService();
             _saveScore = new SaveScoreService();
             gcpClient = new GCP_Vission_Client();
+            _userSaveScoreService = new UserSaveScoreServive();
         }
 
         [HttpPost]
@@ -41,7 +42,7 @@ namespace OCR_School_Web_App.Controllers
                     foreach (string imgPath in srcImagePath)
                     {
                         //string markSheetImagePath = _imageProcessing.CropImage(imgPath);
-                        
+
                         //marksheet = await new GCP_Vission_Client().LoadImg(markSheetImagePath);
                         // implementation requires to be removed = CommonServices.GenerateMarksheetFromOCR(OCR_Output);
                     }
@@ -115,6 +116,40 @@ namespace OCR_School_Web_App.Controllers
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError);
             }
+        }
+
+        [HttpPost]
+        public IActionResult UserSubmit(IFormCollection formCollection)
+        {
+            try
+            {
+                Marksheet marksheet = new Marksheet(new List<int>(), new List<int>());
+                marksheet.MarkSheetId = new int();
+
+
+                // scribe data from formCollection
+                while ()
+                {
+                    if (int.TryParse(formCollection[""], out int val))
+                        marksheet.Question.Add(val);
+                    if (int.TryParse(formCollection[""], out val))
+                        marksheet.Marks.Add(val);
+                }
+
+
+                if (_userSaveScoreService.UserSaveScore(marksheet, out string msg))
+                    return Ok();
+                else
+                    return Problem(msg);
+            }
+            catch(Exception ex)
+            {
+                if (ex.InnerException == null)
+                    return Problem(ex.Message);
+                else
+                    return Problem(ex.InnerException.Message);
+            }
+            throw new NotImplementedException();
         }
     }
 }

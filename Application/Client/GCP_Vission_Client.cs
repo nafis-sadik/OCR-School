@@ -4,7 +4,6 @@ using Google.Cloud.Vision.V1;
 using System.Collections.Generic;
 using Google.Apis.Auth.OAuth2;
 using System.Threading.Tasks;
-using OCR_School_Web_App.Models;
 using Services.Abstraction;
 using Services.Implementation;
 using Entities.Application;
@@ -136,9 +135,6 @@ namespace OCR_School_Web_App.Client
             return result;
         }
 
-        // public static async IReadOnlyList<EntityAnnotation> OCR_Client(string imgPath)
-        // public static async Task<Marksheet> OutputProcessing(IReadOnlyList<EntityAnnotation> imgPath)
-        // Marksheet response = OutputProcessing(OCR_Client("path"));
         public Marksheet OCR_Client(string imgPath)
         {
             // Requesting GCP

@@ -20,15 +20,14 @@ namespace Entities.Models
         public virtual DbSet<Marksheet> Marksheet { get; set; }
         public virtual DbSet<Student> Student { get; set; }
         public virtual DbSet<Subject> Subject { get; set; }
+        public virtual DbSet<Usermarksheet> Usermarksheet { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-#pragma warning disable CS1030 // #warning: 'To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.'
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseMySQL("server=localhost;port=3306;user=root;password=root#1234;database=OCR_DB");
-#pragma warning restore CS1030 // #warning: 'To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.'
             }
         }
 
@@ -98,6 +97,18 @@ namespace Entities.Models
                 entity.Property(e => e.IdSubjec).HasColumnName("idSubjec");
 
                 entity.Property(e => e.SubjectName).HasMaxLength(45);
+            });
+
+            modelBuilder.Entity<Usermarksheet>(entity =>
+            {
+                entity.HasKey(e => e.IdUserTable)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("usermarksheet");
+
+                entity.Property(e => e.IdUserTable).HasColumnName("idUserTable");
+
+                entity.Property(e => e.UserName).HasMaxLength(45);
             });
 
             OnModelCreatingPartial(modelBuilder);
