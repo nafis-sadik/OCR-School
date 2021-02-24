@@ -16,6 +16,8 @@ const Controller = (_url, _method, _data, _viewport = "#Viewport", _cleanViewPor
         url: _url,
         type: _method,
         data: _data,
+        processData: false,
+        contentType: false,
         success: (result) => {
             if (_viewLoadingScreen)
                 $("#LoadingScreen").hide();
@@ -39,8 +41,8 @@ const Controller = (_url, _method, _data, _viewport = "#Viewport", _cleanViewPor
 
 $(document).ready(() => {
     $("#LoadingScreen").hide();
-});
 
-$('#SubmitMarksheet').click(() => {
-    // Save Data
+    $('#SubmitMarksheet').click(() => {
+        Controller('/Scanner/UserSubmit', 'POST', new FormData($('#FinalizedMarkSheet').get(0)), '#Viewport', false, true);
+    });
 });

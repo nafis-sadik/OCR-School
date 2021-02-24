@@ -1,7 +1,3 @@
-D:\OCR-School\TestApplication\obj\Debug\netcoreapp3.1\TestApplication.AssemblyInfoInputs.cache
-D:\OCR-School\TestApplication\obj\Debug\netcoreapp3.1\TestApplication.AssemblyInfo.cs
-D:\OCR-School\TestApplication\obj\Debug\netcoreapp3.1\TestApplication.csproj.CoreCompileInputs.cache
-D:\OCR-School\TestApplication\obj\Debug\netcoreapp3.1\TestApplication.csprojAssemblyReference.cache
 D:\OCR-School\TestApplication\bin\Debug\netcoreapp3.1\Application.Views.dll
 D:\OCR-School\TestApplication\bin\Debug\netcoreapp3.1\Application.Views.pdb
 D:\OCR-School\TestApplication\bin\Debug\netcoreapp3.1\appsettings.Development.json
@@ -387,6 +383,10 @@ D:\OCR-School\TestApplication\bin\Debug\netcoreapp3.1\Application.pdb
 D:\OCR-School\TestApplication\bin\Debug\netcoreapp3.1\Services.pdb
 D:\OCR-School\TestApplication\bin\Debug\netcoreapp3.1\Entities.pdb
 D:\OCR-School\TestApplication\bin\Debug\netcoreapp3.1\Repository.pdb
+D:\OCR-School\TestApplication\obj\Debug\netcoreapp3.1\TestApplication.csprojAssemblyReference.cache
+D:\OCR-School\TestApplication\obj\Debug\netcoreapp3.1\TestApplication.AssemblyInfoInputs.cache
+D:\OCR-School\TestApplication\obj\Debug\netcoreapp3.1\TestApplication.AssemblyInfo.cs
+D:\OCR-School\TestApplication\obj\Debug\netcoreapp3.1\TestApplication.csproj.CoreCompileInputs.cache
 D:\OCR-School\TestApplication\obj\Debug\netcoreapp3.1\TestApplication.csproj.CopyComplete
 D:\OCR-School\TestApplication\obj\Debug\netcoreapp3.1\TestApplication.dll
 D:\OCR-School\TestApplication\obj\Debug\netcoreapp3.1\TestApplication.pdb

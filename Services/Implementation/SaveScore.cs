@@ -15,7 +15,7 @@ namespace Services.Implementation
 
         public SaveScoreService() => _marksheetRepo = new MarksheetRepo();
 
-        public void SaveScore(Entities.Application.Marksheet markSheet)
+        public int SaveScore(Entities.Application.Marksheet markSheet)
         {
             IList<int> Questions = markSheet.Question;
             IList<int> Scores = markSheet.Marks;
@@ -36,6 +36,7 @@ namespace Services.Implementation
                 });
             }
             _marksheetRepo.Save();
+            return randMarkSheetid;
         }
     }
 }

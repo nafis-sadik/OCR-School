@@ -34,11 +34,16 @@ namespace Services.Implementation
                     }
                     if (int.TryParse(description, out value))
                     {
-                        if (++i >= _response.Count) { continue; }
+                        if (++i >= _response.Count)
+                        {
+                            collection.Add(value);
+                            continue;
+                        }
                         while (int.TryParse(_response[i].Description, out int _value))
                         {
                             value *= 10;
                             value += _value;
+                            if (++i >= _response.Count) { break; }
                         }
                         collection.Add(value);
                     }

@@ -26,7 +26,7 @@ namespace OCR_School_Web_App.Controllers
             _fileService = new FileService();
             _saveScore = new SaveScoreService();
             gcpClient = new GCP_Vission_Client();
-            _userSaveScoreService = new UserSaveScoreServive();
+            _userSaveScoreService = new UserSaveScoreService();
         }
 
         [HttpPost]
@@ -109,7 +109,7 @@ namespace OCR_School_Web_App.Controllers
                 {
                     marksheet = gcpClient.OCR_Client(imgPath);
                 }
-                _saveScore.SaveScore(marksheet);
+                marksheet.MarkSheetId = _saveScore.SaveScore(marksheet);
                 return View(marksheet);
             }
             catch (Exception ex)
@@ -126,19 +126,25 @@ namespace OCR_School_Web_App.Controllers
                 Marksheet marksheet = new Marksheet(new List<int>(), new List<int>());
                 marksheet.MarkSheetId = new int();
 
-
+                var questions = formCollection["Question"];
+                var marks = formCollection["Marks"];
+                int val = 0;
                 // scribe data from formCollection
-                while ()
+                for (int i = 0; i < questions.Count; i++)
                 {
-                    if (int.TryParse(formCollection[""], out int val))
+                    if (int.TryParse(questions[i], out val))
                         marksheet.Question.Add(val);
-                    if (int.TryParse(formCollection[""], out val))
+                    if (int.TryParse(marks[i], out val))
                         marksheet.Marks.Add(val);
                 }
 
+                if (int.TryParse(formCollection["MarkSheetId"], out val))
+                    marksheet.MarkSheetId = val;
 
                 if (_userSaveScoreService.UserSaveScore(marksheet, out string msg))
-                    return Ok();
+                    return Ok("<script> "+
+                        "timerInterval;Swal.fire({title:'Submitted Successfully! Database Updated!',html:'Alert will closed in <b></b> seconds.',timer:9e3,timerProgressBar:!0,didOpen:()=>{Swal.showLoading(),timerInterval=setInterval(()=>{const e=Swal.getContent();if(e){const t=e.querySelector('b');t&&(t.textContent=Math.floor(Swal.getTimerLeft()/1e3)+1)}},100)},willClose:()=>{clearInterval(timerInterval)}}).then(e=>{e.dismiss===Swal.DismissReason.timer&&console.log('Alert Closed by Timer : Submission Successful')});"
+                        + "</script>");
                 else
                     return Problem(msg);
             }

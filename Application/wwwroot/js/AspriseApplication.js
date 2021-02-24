@@ -278,7 +278,3 @@ let submitForm = () => {
         displayStatus(false, "Form submission cancelled. Please scan an image first.", true);
     }
 }
-
-let SubmitMarksheet = () => {
-    displayStatus(true, "User Submission in progress, please standby.."), true);
-}

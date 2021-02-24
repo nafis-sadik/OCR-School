@@ -7,6 +7,6 @@ namespace Services.Abstraction
 {
     public interface ISaveScoreService
     {
-        public void SaveScore(Marksheet markSheet);
+        public int SaveScore(Marksheet markSheet);
     }
 }
