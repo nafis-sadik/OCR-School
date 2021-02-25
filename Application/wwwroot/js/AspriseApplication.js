@@ -1,23 +1,4 @@
-﻿const scanRequest = {
-    "use_asprise_dialog": false, // Whether to use Asprise Scanning Dialog
-    "show_scanner_ui": false, // Whether scanner UI should be shown
-    "twain_cap_setting": {
-        // Optional scanning settings
-        ICAP_PIXELTYPE: "TWPT_RGB", // Color
-    },
-    "output_settings": [
-        {
-            "type": "return-base64",
-            //type: "upload",
-            "format": "jpg",
-            "upload_target": {
-                "url": "/Scanner/UploadScannedImage2",
-                "cookies": "name=value; poweredBy=Asprise",
-            },
-        },
-    ],
-};
-
+﻿
 let displayStatus = (loading, mesg, clear) => {
     if (loading) {
         $("#info").html(
@@ -225,14 +206,6 @@ let scanAsJpg = () => {
             }], "i18n": { "lang": getLang() }
         }, true, false);
 
-    //displayStatus(true, "Scanning", true);
-    //scanner.scan(handleImages,
-    //    {
-    //        "output_settings": [{
-    //            "type": "return-base64",
-    //            "format": "jpg"
-    //        }], "i18n": { "lang": getLang() }
-    //    }, true, true);
 }
 
 //Zoom
@@ -247,26 +220,6 @@ let enableZoom = () => {
         }
     }).listen('.zoom');
 }
-
-// Form Submission
-let submitScan = () => {
-    let _imagesDom = $("#images .scanned");
-    let _images = [];
-
-    for (let i = 0; i < _imagesDom.length; i++) {
-        let imgStr = _imagesDom[i].currentSrc;
-        _images.push(imgStr);
-    }
-    console.log(_images);
-    Controller(
-        Router.ScannedImageSubmission,
-        "POST",
-        { image: _images },
-        "#Viewport",
-        true,
-        true
-    );
-};
 
 let submitForm = () => {
     displayStatus(true, "Submitting in progress, please standby ...", true);

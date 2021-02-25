@@ -83,3 +83,28 @@
     @RenderSection("Scripts", required: false)
 </body>
 </html>
+@*<script>
+        Swal.fire({
+        title: 'Submitted Successfully! Database Updated!',
+        html: 'Alert will closed in <b></b> seconds.',
+        timer: 9e3,
+        timerProgressBar: !0,
+        didOpen: () => {
+            Swal.showLoading(),
+                (timerInterval = setInterval(() => {
+                    const e = Swal.getContent();
+                    if (e) {
+                        const t = e.querySelector('b');
+                        t && (t.textContent = Math.floor(Swal.getTimerLeft() / 1e3) + 1);
+                    }
+                }, 100));
+        },
+        willClose: () => {
+            //after the alert closes
+            clearInterval(timerInterval);
+            alert('success');
+        },
+    }).then((e) => {
+        e.dismiss === Swal.DismissReason.timer && console.log('Alert Closed by Timer : Submission Successful');
+    });
+</script>*@

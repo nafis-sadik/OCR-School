@@ -1,11 +1,8 @@
 ﻿using Services.Abstraction;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using Repository;
 using System.Linq;
-using Entities.Models;
-using Entities.Application;
+
 
 namespace Services.Implementation
 {
@@ -19,16 +16,15 @@ namespace Services.Implementation
         {
             IList<int> Questions = markSheet.Question;
             IList<int> Scores = markSheet.Marks;
-            Random randMSID = new Random();
 
-            int randMarkSheetid = _marksheetRepo.AsQueryable().Max(x => x.MarksheetId) + 1;
-            for (var i = 0; i < Questions.Count; i++)
+            int markSheetid = _marksheetRepo.AsQueryable().Max(x => x.MarksheetId) + 1;
+            for (int i = 0; i < Questions.Count; i++)
             {
                 //StudentID and SubjectId will be provided by API
                 _marksheetRepo.Add(new Entities.Models.Marksheet
                 {
                     MarksheetTableId = _marksheetRepo.AsQueryable().Max(x => x.MarksheetTableId) + i + 1,
-                    MarksheetId = randMarkSheetid,
+                    MarksheetId = markSheetid,
                     StudentId = 1,
                     SubjectId = 1,
                     Question = Questions[i],
@@ -36,7 +32,7 @@ namespace Services.Implementation
                 });
             }
             _marksheetRepo.Save();
-            return randMarkSheetid;
+            return markSheetid;
         }
     }
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Entities.Models
+﻿namespace Entities.Models
 {
     public partial class Marksheet
     {

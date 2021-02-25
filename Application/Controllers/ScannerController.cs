@@ -1,14 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Services.Abstraction;
 using Services.Implementation;
 using OCR_School_Web_App.Client;
 using System.Net;
-using System.IO;
 using Microsoft.AspNetCore.Http;
 using Entities.Application;
 
@@ -27,75 +24,6 @@ namespace OCR_School_Web_App.Controllers
             _saveScore = new SaveScoreService();
             gcpClient = new GCP_Vission_Client();
             _userSaveScoreService = new UserSaveScoreService();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> UploadScannedImage(List<string> image)
-        {
-            string OCR_Output = "";
-            Marksheet marksheet = new Marksheet(new List<int>(), new List<int>());
-
-            try
-            {
-                if (_fileService.SaveImageFile(image, out List<string> srcImagePath))
-                {
-                    foreach (string imgPath in srcImagePath)
-                    {
-                        //string markSheetImagePath = _imageProcessing.CropImage(imgPath);
-
-                        //marksheet = await new GCP_Vission_Client().LoadImg(markSheetImagePath);
-                        // implementation requires to be removed = CommonServices.GenerateMarksheetFromOCR(OCR_Output);
-                    }
-                }
-                else
-                {
-                    return StatusCode((int)HttpStatusCode.InternalServerError);
-                }
-
-                return View(marksheet);
-            }
-            catch (Exception ex)
-            {
-                if (ex.InnerException != null)
-                    OCR_Output = ex.InnerException.Message;
-                else
-                    OCR_Output = ex.Message;
-                return StatusCode((int)HttpStatusCode.InternalServerError);
-            }
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> UploadScannedImage2(List<string> image)
-        {
-            string OCR_Output = "";
-            Marksheet marksheet = new Marksheet(new List<int>(), new List<int>());
-
-            try
-            {
-                if (_fileService.SaveImageFile(image, out List<string> srcImagePath))
-                {
-                    foreach (string imgPath in srcImagePath)
-                    {
-                        //string markSheetImagePath = _imageProcessing.CropImage(imgPath);
-                        //marksheet = await new GCP_Vission_Client().LoadImg(markSheetImagePath);
-                        // CommonServices.GenerateMarksheetFromOCR(OCR_Output);
-                    }
-                }
-                else
-                {
-                    return StatusCode((int)HttpStatusCode.InternalServerError);
-                }
-
-                return View(marksheet);
-            }
-            catch (Exception ex)
-            {
-                if (ex.InnerException != null)
-                    OCR_Output = ex.InnerException.Message;
-                else
-                    OCR_Output = ex.Message;
-                return StatusCode((int)HttpStatusCode.InternalServerError);
-            }
         }
 
         [HttpPost]
@@ -143,7 +71,7 @@ namespace OCR_School_Web_App.Controllers
 
                 if (_userSaveScoreService.UserSaveScore(marksheet, out string msg))
                     return Ok("<script> "+
-                        "timerInterval;Swal.fire({title:'Submitted Successfully! Database Updated!',html:'Alert will closed in <b></b> seconds.',timer:9e3,timerProgressBar:!0,didOpen:()=>{Swal.showLoading(),timerInterval=setInterval(()=>{const e=Swal.getContent();if(e){const t=e.querySelector('b');t&&(t.textContent=Math.floor(Swal.getTimerLeft()/1e3)+1)}},100)},willClose:()=>{clearInterval(timerInterval)}}).then(e=>{e.dismiss===Swal.DismissReason.timer&&console.log('Alert Closed by Timer : Submission Successful')});"
+                        "Swal.fire({title:'Submitted Successfully! Database Updated!',html:'Alert will closed in <b></b> seconds.',timer:9e3,timerProgressBar:!0,didOpen:()=>{Swal.showLoading(),timerInterval=setInterval(()=>{const e=Swal.getContent();if(e){const t=e.querySelector('b');t&&(t.textContent=Math.floor(Swal.getTimerLeft()/1e3)+1)}},100)},willClose:()=>{clearInterval(timerInterval),alert('success')}}).then(e=>{e.dismiss===Swal.DismissReason.timer&&console.log('Alert Closed by Timer : Submission Successful')});"
                         + "</script>");
                 else
                     return Problem(msg);

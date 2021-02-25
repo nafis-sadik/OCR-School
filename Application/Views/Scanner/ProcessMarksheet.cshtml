@@ -1,5 +1,5 @@
 ﻿@model Entities.Application.Marksheet
-@{ 
+@{
     Layout = null;
 }
 
@@ -24,3 +24,13 @@
     @Html.HiddenFor(x => x.MarkSheetId)
     <button id="SubmitMarksheet" type="button" class="btn btn-primary mb-2">Submit Score</button>
 </form>
+
+<script>
+    $(document).ready(() => {
+        $("#LoadingScreen").hide();
+
+        $('#SubmitMarksheet').click(() => {
+            Controller('/Scanner/UserSubmit', 'POST', new FormData($('#FinalizedMarkSheet').get(0)), '#Viewport', false, true);
+        });
+    });
+</script>
